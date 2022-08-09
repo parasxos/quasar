@@ -20,3 +20,6 @@ Makefile
 **/generated/
 **/cmake_generated.cmake
 build/
+_build/
+__pycache__/
+.DS_Store
