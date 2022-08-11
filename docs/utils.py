@@ -15,6 +15,13 @@ exception_index = [
   'quasar_OPC_UA_servers.html'
 ]
 
+known_server_url = 'https://gitlab.cern.ch/atlas-dcs-opcua-servers/ListKnownQuasarOpcUaServers/-/raw/master/quasar_opcua_servers.html'
+
+def get_list_know_servers():
+  response = requests.get(known_server_url)
+  content = response.text
+  with open('./Documentation/quasar_OPC_UA_servers.html', 'w') as f:
+    f.write(content)
 
 def get_files(in_path, external_extensions = []):
   html_files = []
@@ -105,8 +112,18 @@ def parse_html_files(files, html_path, output_path, raw_html=['ChangeLog.html', 
     out_name =  os.path.basename(file).replace('.html', '.rst')
     out_path = os.path.join(output_path, out_name)
 
-    with open(in_path, 'r') as f:
-      content = f.read()
+    content = None
+    encoding = ['utf-8', 'latin-1', 'ascii']
+    
+    for enc in encoding:
+      try:
+        content = open(in_path, 'r', encoding=enc).read()
+        break
+      except:
+        pass
+
+    if content is None:
+      raise Exception(f'Could not read {in_path}')
 
     idx_first_h1 = content.find('</h1>')
     if idx_first_h1 != -1:

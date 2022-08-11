@@ -16,6 +16,9 @@ if __name__ == '__main__':
   # Download pandoc binary
   pypandoc.pandoc_download.download_pandoc()
 
+  # Download list known server html file
+  utils.get_list_know_servers()
+
   # Get list of HTML files
   files = utils.get_files(HTMLS_PATH, EXTERNAL_EXTENSIONS)
   html_files, external_files, note_files = files

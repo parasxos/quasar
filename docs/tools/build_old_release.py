@@ -11,7 +11,7 @@ URL_REPO = 'https://github.com/parasxos/quasar'
 LOCAL_REPO = '/Users/jolyne/Desktop/Code/CERN/tmp'
 SRC_REPO = '/Users/jolyne/Desktop/Code/CERN/quasar'
 
-TARGET_VERSIONS_DIR = '/Users/jolyne/Desktop/Code/CERN/tmp/versions'
+TARGET_VERSIONS_DIR = '/Users/jolyne/Desktop/Code/CERN/versions'
 
 VERSION_REGEX = r'^v\d+\.\d+\.\d+$'
 
@@ -32,17 +32,18 @@ for tag in repo.tags:
 
     os.system(f'cd {LOCAL_REPO} && python3 ./docs/html2rst.py && ls -l docs/source/converted')
 
-    cmd = f'cd {LOCAL_REPO} && sphinx-build -b html ./docs/source ./docs/_build/{tag.name}'
-    #clip.copy(cmd)
-    print('The following command was copied to the clipboard, please execute it:', cmd)
-
     os.system(f'cd {LOCAL_REPO} && sphinx-build -b html ./docs/source ./docs/_build/{tag.name}')
-    #response = input('Press enter to continue any key to continue, "x" to exit: ')
-    #if response.lower() == 'x':
-    #  break
+
+    #make epub file
+    os.system(f'cd {LOCAL_REPO}/docs && make epub && cp ./build/epub/Quasar.epub ./_build/{tag.name}/Quasar.epub')
+    os.system(f'cd {LOCAL_REPO}/docs && mv ./_build/{tag.name}/Quasar.epub ./_build/{tag.name}/Quasar\ {tag.name}.epub')
+
+    #make pdf file
+    os.system(f'cd {LOCAL_REPO}/docs && make latexpdf && cp ./build/latex/quasar.pdf ./_build/{tag.name}/quasar.pdf')
+    os.system(f'cd {LOCAL_REPO}/docs && mv ./_build/{tag.name}/quasar.pdf ./_build/{tag.name}/Quasar\ {tag.name}.pdf')
 
     os.system(f'cd {LOCAL_REPO} && cp -r ./docs/_build/{tag.name} {TARGET_VERSIONS_DIR}')
 
     repo.git.restore('.')
     print(f'Tag {tag.name} processed')
-    break
+
