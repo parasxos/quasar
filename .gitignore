@@ -7,7 +7,6 @@ cmake_install.cmake
 *.pyc
 *.log
 bin/PKI
-Makefile
 **/*.dir
 **/*.vcxproj*
 **/*.tmp
