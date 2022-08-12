@@ -45,6 +45,8 @@ for tag in repo.tags:
 
     os.system(f'cd {LOCAL_REPO} && cp -r ./docs/_build/{tag.name} {TARGET_VERSIONS_DIR}')
 
+    os.system(f'mkdir -p {LOCAL_REPO}/docs/source/converted')
     repo.git.restore('.')
     print(f'Tag {tag.name} processed')
+
 
