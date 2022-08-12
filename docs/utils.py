@@ -136,6 +136,15 @@ def parse_html_files(files, html_path, output_path, raw_html=['ChangeLog.html', 
       parse_raw_html(file, in_path, out_path, raw_contents_types.get(file))
     else:  
       rst = pypandoc.convert_file(in_path, 'rst', outputfile=out_path)
+      if 'quasar.rst' in out_path:
+        with open(out_path, 'r') as f:
+          content = f.read()
+
+        content = content \
+          .replace('[logo]\ quasar', 'Quasar') \
+          .replace('[logo]quasar', 'Quasar')
+        with open(out_path, 'w') as f:
+          f.write(content)
     files_processed += 1
 
   print(f'Done, {files_processed} files converted')

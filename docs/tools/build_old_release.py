@@ -26,6 +26,7 @@ for tag in repo.tags:
     repo.git.checkout('tags/' + tag.name)
 
     os.system(f'cp -r {SRC_REPO}/docs {LOCAL_REPO}')
+    os.system(f'cp -r {LOCAL_REPO}/CalculatedVariables/doc/. {LOCAL_REPO}/Documentation')
 
     os.system(f'rm -rf {LOCAL_REPO}/docs/source/converted')
     os.system(f'mkdir -p {LOCAL_REPO}/docs/source/converted')

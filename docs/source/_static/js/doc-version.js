@@ -100,8 +100,8 @@ function _addVersionsMenu(version_data) {
       github_project_url +
       "'>Project Home</a></dd>" +
       "<dd><a href='" +
-      github_project_url +
-      "/issues'>Issues</a></dd>";
+      'https://its.cern.ch/jira/projects/OPCUA' +
+      ">Issues</a></dd>";
   }
   var inner_html =
     inner_html +
