@@ -101,7 +101,7 @@ function _addVersionsMenu(version_data) {
       "'>Project Home</a></dd>" +
       "<dd><a href='" +
       'https://its.cern.ch/jira/projects/OPCUA' +
-      ">Issues</a></dd>";
+      "'>Issues</a></dd>";
   }
   var inner_html =
     inner_html +
