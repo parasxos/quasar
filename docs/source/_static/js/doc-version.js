@@ -120,9 +120,11 @@ function _addVersionsMenu(version_data) {
   var warning;
   var msg;
   if (
-    version_data['warnings'] &&
-    version_data['warnings'][current_folder] &&
-    current_folder != lastRelease && current_folder != 'latest'
+    (
+      version_data['warnings'] &&
+      version_data['warnings'][current_folder]
+    ) ||
+    (current_folder != lastRelease && current_folder != 'latest')
     //version_data['warnings'][current_folder].indexOf('outdated') >= 0
   ) {
     warning = document.createElement('div');
