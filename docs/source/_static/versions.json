@@ -8,9 +8,7 @@
     "latest": "Latest"
   },
   "warnings": {
-    "v1.2.0": ["outdated"],
-    "v1.3.0": ["outdated"],
-    "v1.4.0": ["outdated"]
+
   },
   "latest": "latest"
 }

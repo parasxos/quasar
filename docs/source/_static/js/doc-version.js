@@ -30,10 +30,10 @@ function _addVersionsMenu(version_data) {
   // The menu was reverse-engineered from the RTD websites, so it's very
   // specific to the sphinx_rtd_theme
   var folders = version_data['versions'];
+  var lastRelease = folders[1];
   var current_url = getCurrentUrl();
   var current_folder = getGhPagesCurrentFolder();
-  var current_version =
-    version_data['labels'][current_folder] || current_folder;
+  var current_version = version_data['labels'][current_folder] || current_folder;
   var menu = document.createElement('div');
   menu.setAttribute('class', 'rst-versions');
   menu.setAttribute('data-toggle', 'rst-versions');
@@ -122,7 +122,8 @@ function _addVersionsMenu(version_data) {
   if (
     version_data['warnings'] &&
     version_data['warnings'][current_folder] &&
-    version_data['warnings'][current_folder].indexOf('outdated') >= 0
+    lastRelease != current_folder && lastRelease != 'latest'
+    //version_data['warnings'][current_folder].indexOf('outdated') >= 0
   ) {
     warning = document.createElement('div');
     warning.setAttribute('class', 'admonition danger');
