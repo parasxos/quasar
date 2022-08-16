@@ -29,10 +29,7 @@ The workflow has the following steps:
 When a new release is created, a GitHub Action workflow is executed, this action create the new folder for the content of this release, but to show this new version on the website must update also the [version.json](./source/_static/versions.json). This file contains the list of all the versions to show on the website. Also can mark specific versions with warnings of rename with a new label. The structure of this file is the following:
 
 ```json
-{
-  // The default branch to show on the website.
-  "default-branch": "latest",
-  
+{ 
   // The list of versions to show on the website, is like a whitelist.
   "versions": [ "latest", "1.8.1" ],
   
@@ -46,10 +43,7 @@ When a new release is created, a GitHub Action workflow is executed, this action
   "warnings": {
     // This list can contains one o more of the following: "outdated", "unreleased" and "prereleased".
     "1.8.1": ["outdated"]
-  },
-
-  // The latest version to show on the website.
-  "latest": "latest"
+  }
 }
 ```
 
