@@ -110,6 +110,7 @@ jobs:
 
         echo 'Copying new build to EOS'
         cp -a . /eos/project-q/quasar/www/
+        rm -rf /eos/project-q/quasar/www/version
         cp -r /usr/share/nginx/quasar/version /eos/project-q/quasar/www
 
     - name: Update versions
