@@ -47,3 +47,10 @@ When a new release is created, a GitHub Action workflow is executed, this action
 }
 ```
 
+## Troubleshooting
+
+During the execution of the GitHub action there may occur problems in which its execution is interrupted, this may be due to a problem with the action or during the execution of one of the action steps.
+
+
+- Problems during an Action update: if the action does not attend any more executions, it may stop during the runner update and show no progress. In this situation you have to delete the action folder (~/action-runner) and reinstall the GitHub Action as described in "Dependencies on server".
+- Problems during the execution of an action step: the action may have started correctly but one of its steps may not finish successfully. In this case, the error caused in the step must be analyzed in order to make the pertinent changes, it may be due to permissions or directory changes.
