@@ -28,6 +28,11 @@ def get_files(in_path, external_extensions = []):
   note_files = []
   external_files = []
 
+  # Copy calculated variables doc
+  cal_var_path = './CalculatedVariables/doc/'
+  if os.path.exists(cal_var_path):
+    os.system(f'cp -r {cal_var_path} {in_path}')
+
   for filename in os.listdir(in_path):
     extension = os.path.splitext(filename)[1]
   
