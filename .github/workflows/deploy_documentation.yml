@@ -51,11 +51,11 @@ jobs:
         export SPHINX_BIN_PATH=`which sphinx-build`
         sed -i.bak 's/\<sphinx-build\>/$SPHINX_BIN_PATH/g' Makefile
 
-        make epub
+        sphinx-build -M epub source build
         cp ./build/epub/Quasar.epub ./_build/${{ env.VERSION_NAME }}
         mv ./_build/${{ env.VERSION_NAME }}/Quasar.epub ./_build/${{ env.VERSION_NAME }}/Quasar\ ${{ env.VERSION_NAME }}.epub
 
-        make latexpdf
+        sphinx-build -M latexpdf source build
         cp ./build/latex/quasar.pdf ./_build/${{ env.VERSION_NAME }}
         mv ./_build/${{ env.VERSION_NAME }}/quasar.pdf ./_build/${{ env.VERSION_NAME }}/Quasar\ ${{ env.VERSION_NAME }}.pdf
 
