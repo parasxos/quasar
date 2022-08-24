@@ -1,6 +1,5 @@
 import os
 import re
-import clipboard as clip
 import git as Git
 import subprocess as sbp
 
@@ -8,10 +7,10 @@ import utils
 
 URL_REPO = 'https://github.com/parasxos/quasar'
 
-LOCAL_REPO = '/Users/jolyne/Desktop/Code/CERN/tmp'
-SRC_REPO = '/Users/jolyne/Desktop/Code/CERN/quasar'
-
-TARGET_VERSIONS_DIR = '/Users/jolyne/Desktop/Code/CERN/versions'
+TEMP_QUASAR = '/tmp'
+LOCAL_REPO = f'{TEMP_QUASAR}/tmp'
+SRC_REPO = f'{TEMP_QUASAR}/quasar'
+TARGET_VERSIONS_DIR = f'{TEMP_QUASAR}/versions'
 
 VERSION_REGEX = r'^v\d+\.\d+\.\d+$'
 
@@ -49,4 +48,8 @@ for tag in repo.tags:
     repo.git.restore('.')
     print(f'Tag {tag.name} processed')
 
-
+print(
+  'The old release was compiled successfully. In order to update it on the VM\n' +
+  'you must send all the release folder to the VM via scp. Here you have a template of the command to do that:'
+)
+print(f'scp -r {TARGET_VERSIONS_DIR} <your_username>@<hostname>:<folder_destination_on_host>')
