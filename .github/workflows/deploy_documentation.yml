@@ -47,6 +47,7 @@ jobs:
     
     - name: Build documentation PDF as ePUB
       run: |
+        export PATH="~/.local/bin:$PATH"
         cd "${GITHUB_WORKSPACE}/Documentation"
 
         make epub
