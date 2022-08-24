@@ -103,6 +103,11 @@ jobs:
         echo 'Reloading nginx'
         echo ${{ secrets.PASS_USER }} | sudo -S nginx -s reload
 
+    - name: Update versions
+      run: |
+        cd "${GITHUB_WORKSPACE}"
+        python3 ./docs/update_versions.py
+
     - name: Update EOS web site
       if: ${{ env.VERSION_NAME == 'latest' }}
       run: |
@@ -112,8 +117,3 @@ jobs:
         cp -a . /eos/project-q/quasar/www/
         rm -rf /eos/project-q/quasar/www/version
         cp -r /usr/share/nginx/quasar/version /eos/project-q/quasar/www
-
-    - name: Update versions
-      run: |
-        cd "${GITHUB_WORKSPACE}"
-        python3 ./docs/update_versions.py
