@@ -42,12 +42,12 @@ jobs:
 
     - name: Build HTML documentation
       run: |
-        cd "${GITHUB_WORKSPACE}/docs"
+        cd "${GITHUB_WORKSPACE}/Documentation"
         sphinx-build -b html ./source ./_build/${{ env.VERSION_NAME }}
     
     - name: Build documentation PDF as ePUB
       run: |
-        cd "${GITHUB_WORKSPACE}/docs"
+        cd "${GITHUB_WORKSPACE}/Documentation"
 
         make epub
         cp ./build/epub/Quasar.epub ./_build/${{ env.VERSION_NAME }}
@@ -60,7 +60,7 @@ jobs:
     - name: Update server
       run: |
         echo 'Change directory location to build html'
-        cd "${GITHUB_WORKSPACE}/docs/_build/${{ env.VERSION_NAME }}"
+        cd "${GITHUB_WORKSPACE}/Documentation/_build/${{ env.VERSION_NAME }}"
 
         echo 'Removing old build'
         rm -rf /home/fmagalla/quasar/${{ env.VERSION_NAME }}
