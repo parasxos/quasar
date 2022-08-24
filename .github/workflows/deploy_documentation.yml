@@ -47,9 +47,9 @@ jobs:
     
     - name: Build documentation PDF as ePUB
       run: |
-        export PATH="~/.local/bin:$PATH"
-        sphinx-build --version
         cd "${GITHUB_WORKSPACE}/Documentation"
+        export SPHINX_BIN_PATH=`which sphinx-build`
+        sed -i.bak 's/\<sphinx-build\>/$SPHINX_BIN_PATH/g' Makefile
 
         make epub
         cp ./build/epub/Quasar.epub ./_build/${{ env.VERSION_NAME }}
