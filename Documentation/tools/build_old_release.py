@@ -1,5 +1,6 @@
-import os
 import re
+import os
+import shutil
 import git as Git
 import subprocess as sbp
 
@@ -7,21 +8,24 @@ import utils
 
 URL_REPO = 'https://github.com/parasxos/quasar'
 
-TEMP_QUASAR = '/tmp'
-LOCAL_REPO = f'{TEMP_QUASAR}/tmp'
-SRC_REPO = f'{TEMP_QUASAR}/quasar'
-TARGET_VERSIONS_DIR = f'{TEMP_QUASAR}/versions'
+TEMP_FOLDER = '/tmp'
+LOCAL_REPO = f'{TEMP_FOLDER}/tmp_repo'
+SRC_REPO = f'{TEMP_FOLDER}/src_repo'
+TARGET_VERSIONS_DIR = f'{TEMP_FOLDER}/versions'
 
 VERSION_REGEX = r'^v\d+\.\d+\.\d+$'
 
 if os.path.exists(LOCAL_REPO):
-  repo = Git.Repo(LOCAL_REPO)
-else:
-  repo = Git.Repo.clone_from(URL_REPO, LOCAL_REPO, branch='master')
+  shutil.rmtree(LOCAL_REPO)
+if os.path.exists(SRC_REPO):
+  shutil.rmtree(SRC_REPO)
+
+Git.Repo.clone_from(URL_REPO, SRC_REPO, branch='master')
+repo = Git.Repo.clone_from(URL_REPO, LOCAL_REPO, branch='master')
 
 for tag in repo.tags:
   if re.match(VERSION_REGEX, tag.name):
-    print('Found tag: ' + tag.name)
+    print('Processing tag: ' + tag.name)
     repo.git.checkout('tags/' + tag.name)
 
     os.system(f'cp -r {SRC_REPO}/Documentation {LOCAL_REPO}')
@@ -48,8 +52,12 @@ for tag in repo.tags:
     repo.git.restore('.')
     print(f'Tag {tag.name} processed')
 
+print()
 print(
+  '=' * 120 + '\n' +
   'The old release was compiled successfully. In order to update it on the VM\n' +
-  'you must send all the release folder to the VM via scp. Here you have a template of the command to do that:'
+  'you must send all the release folder to the VM via scp. Here you have a template of the command to do that:\n' +
+  f'scp -r {TARGET_VERSIONS_DIR} <your_username>@<hostname>:/tmp\n' + 
+  'cp -r /tmp/versions/. /usr/share/nginx/version\n' +
+  'cp -r /tmp/versions/. /eos/project-q/quasar/www/version' 
 )
-print(f'scp -r {TARGET_VERSIONS_DIR} <your_username>@<hostname>:<folder_destination_on_host>')
