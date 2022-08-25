@@ -1,6 +1,6 @@
-import os
 import re
-import clipboard as clip
+import os
+import shutil
 import git as Git
 import subprocess as sbp
 
@@ -8,21 +8,24 @@ import utils
 
 URL_REPO = 'https://github.com/parasxos/quasar'
 
-LOCAL_REPO = '/Users/jolyne/Desktop/Code/CERN/tmp'
-SRC_REPO = '/Users/jolyne/Desktop/Code/CERN/quasar'
-
-TARGET_VERSIONS_DIR = '/Users/jolyne/Desktop/Code/CERN/versions'
+TEMP_FOLDER = '/tmp'
+LOCAL_REPO = f'{TEMP_FOLDER}/tmp_repo'
+SRC_REPO = f'{TEMP_FOLDER}/src_repo'
+TARGET_VERSIONS_DIR = f'{TEMP_FOLDER}/versions'
 
 VERSION_REGEX = r'^v\d+\.\d+\.\d+$'
 
 if os.path.exists(LOCAL_REPO):
-  repo = Git.Repo(LOCAL_REPO)
-else:
-  repo = Git.Repo.clone_from(URL_REPO, LOCAL_REPO, branch='master')
+  shutil.rmtree(LOCAL_REPO)
+if os.path.exists(SRC_REPO):
+  shutil.rmtree(SRC_REPO)
+
+Git.Repo.clone_from(URL_REPO, SRC_REPO, branch='master')
+repo = Git.Repo.clone_from(URL_REPO, LOCAL_REPO, branch='master')
 
 for tag in repo.tags:
   if re.match(VERSION_REGEX, tag.name):
-    print('Found tag: ' + tag.name)
+    print('Processing tag: ' + tag.name)
     repo.git.checkout('tags/' + tag.name)
 
     os.system(f'cp -r {SRC_REPO}/Documentation {LOCAL_REPO}')
@@ -49,4 +52,12 @@ for tag in repo.tags:
     repo.git.restore('.')
     print(f'Tag {tag.name} processed')
 
-
+print()
+print(
+  '=' * 120 + '\n' +
+  'The old release was compiled successfully. In order to update it on the VM you must send all these release folder to the VM via scp.\n' +
+  'Here you have a example of the commands to do that:\n' +
+  f'scp -r {TARGET_VERSIONS_DIR} <your_username>@<hostname>:/tmp\n' + 
+  'cp -r /tmp/versions/. /usr/share/nginx/version\n' +
+  'cp -r /tmp/versions/. /eos/project-q/quasar/www/version' 
+)
