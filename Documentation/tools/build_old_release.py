@@ -4,8 +4,6 @@ import shutil
 import git as Git
 import subprocess as sbp
 
-import utils
-
 URL_REPO = 'https://github.com/parasxos/quasar'
 
 TEMP_FOLDER = '/tmp'
