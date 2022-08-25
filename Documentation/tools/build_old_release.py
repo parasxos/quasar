@@ -35,6 +35,7 @@ def copy_sphinx_files():
   for file in files:
     os.system(f'cp {SRC_REPO}/Documentation/{file} {LOCAL_REPO}/Documentation/{file}')
 
+  os.system(f'cp {SRC_REPO}/Documentation/source/converted/quasar_OPC_UA_servers.rst {LOCAL_REPO}/Documentation/source/converted/quasar_OPC_UA_servers.rst')
 
 for tag in repo.tags:
   if re.match(VERSION_REGEX, tag.name):
