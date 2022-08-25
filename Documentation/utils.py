@@ -30,6 +30,7 @@ def get_files(in_path, external_extensions = []):
 
   # Copy calculated variables doc
   cal_var_path = './CalculatedVariables/doc/'
+  files_cal_vars = os.listdir(cal_var_path)
   if os.path.exists(cal_var_path):
     os.system(f'cp -r {cal_var_path} {in_path}')
 
@@ -38,7 +39,7 @@ def get_files(in_path, external_extensions = []):
   
     if filename.endswith('.html'):
       html_files.append(filename)
-    elif extension in external_extensions:
+    elif extension in external_extensions and filename not in files_cal_vars:
       external_files.append(filename)
 
   for filename in os.listdir(f'{in_path}/Notes'):
