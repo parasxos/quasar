@@ -30,7 +30,12 @@ def get_files(in_path, external_extensions = []):
 
   # Copy calculated variables doc
   cal_var_path = './CalculatedVariables/doc/'
-  files_cal_vars = os.listdir(cal_var_path)
+  files_cal_vars = None
+  try:
+    files_cal_vars = os.listdir(cal_var_path)
+  except:
+    files_cal_vars = []
+
   if os.path.exists(cal_var_path):
     os.system(f'cp -r {cal_var_path} {in_path}')
 

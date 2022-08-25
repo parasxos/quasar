@@ -6,19 +6,23 @@ import subprocess as sbp
 
 URL_REPO = 'https://github.com/parasxos/quasar'
 
-TEMP_FOLDER = '/tmp'
+TEMP_FOLDER = './sandbox'
 LOCAL_REPO = f'{TEMP_FOLDER}/tmp_repo'
 SRC_REPO = f'{TEMP_FOLDER}/src_repo'
 TARGET_VERSIONS_DIR = f'{TEMP_FOLDER}/versions'
 
 VERSION_REGEX = r'^v\d+\.\d+\.\d+$'
 
+os.makedirs(TEMP_FOLDER, exist_ok=True)
+print(LOCAL_REPO, SRC_REPO)
 if os.path.exists(LOCAL_REPO):
+  print('Deleting previous local repo')
   shutil.rmtree(LOCAL_REPO)
 if os.path.exists(SRC_REPO):
+  print('Deleting previous src repo')
   shutil.rmtree(SRC_REPO)
 
-Git.Repo.clone_from(URL_REPO, SRC_REPO, branch='master')
+_ = Git.Repo.clone_from(URL_REPO, SRC_REPO, branch='master')
 repo = Git.Repo.clone_from(URL_REPO, LOCAL_REPO, branch='master')
 
 for tag in repo.tags:
@@ -49,6 +53,8 @@ for tag in repo.tags:
     os.system(f'mkdir -p {LOCAL_REPO}/Documentation/source/converted')
     repo.git.restore('.')
     print(f'Tag {tag.name} processed')
+
+shutil.rmtree(TEMP_FOLDER)
 
 print()
 print(
