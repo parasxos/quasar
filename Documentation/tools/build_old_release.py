@@ -55,8 +55,8 @@ for tag in repo.tags:
 print()
 print(
   '=' * 120 + '\n' +
-  'The old release was compiled successfully. In order to update it on the VM\n' +
-  'you must send all the release folder to the VM via scp. Here you have a template of the command to do that:\n' +
+  'The old release was compiled successfully. In order to update it on the VM you must send all these release folder to the VM via scp.\n' +
+  'Here you have a example of the commands to do that:\n' +
   f'scp -r {TARGET_VERSIONS_DIR} <your_username>@<hostname>:/tmp\n' + 
   'cp -r /tmp/versions/. /usr/share/nginx/version\n' +
   'cp -r /tmp/versions/. /eos/project-q/quasar/www/version' 
