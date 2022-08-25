@@ -43,6 +43,7 @@ jobs:
     - name: Build HTML documentation
       run: |
         cd "${GITHUB_WORKSPACE}/Documentation"
+        export SPHINXBUILD=`which sphinx-build`
         sphinx-build -b html ./source ./_build/${{ env.VERSION_NAME }}
     
     - name: Build documentation PDF as ePUB
