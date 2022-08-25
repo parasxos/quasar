@@ -6,14 +6,14 @@ import subprocess as sbp
 
 URL_REPO = 'https://github.com/parasxos/quasar'
 
-TEMP_FOLDER = './sandbox'
+TEMP_FOLDER = '/tmp/sandbox'
 LOCAL_REPO = f'{TEMP_FOLDER}/tmp_repo'
 SRC_REPO = f'{TEMP_FOLDER}/src_repo'
 TARGET_VERSIONS_DIR = f'{TEMP_FOLDER}/versions'
 
 VERSION_REGEX = r'^v\d+\.\d+\.\d+$'
 
-os.makedirs(TEMP_FOLDER, exist_ok=True)
+#os.makedirs(TEMP_FOLDER, exist_ok=True)
 print(LOCAL_REPO, SRC_REPO)
 if os.path.exists(LOCAL_REPO):
   print('Deleting previous local repo')
@@ -22,15 +22,26 @@ if os.path.exists(SRC_REPO):
   print('Deleting previous src repo')
   shutil.rmtree(SRC_REPO)
 
+os.makedirs(TEMP_FOLDER, exist_ok=True)
+os.makedirs(TARGET_VERSIONS_DIR, exist_ok=True)
+
 _ = Git.Repo.clone_from(URL_REPO, SRC_REPO, branch='master')
 repo = Git.Repo.clone_from(URL_REPO, LOCAL_REPO, branch='master')
+
+def copy_sphinx_files():
+  os.system(f'cp -r {SRC_REPO}/Documentation/source {LOCAL_REPO}/Documentation')
+
+  files = ['make.bat', 'Makefile', 'utils.py', 'html2rst.py', 'update_versions.py']
+  for file in files:
+    os.system(f'cp {SRC_REPO}/Documentation/{file} {LOCAL_REPO}/Documentation/{file}')
+
 
 for tag in repo.tags:
   if re.match(VERSION_REGEX, tag.name):
     print('Processing tag: ' + tag.name)
     repo.git.checkout('tags/' + tag.name)
 
-    os.system(f'cp -r {SRC_REPO}/Documentation {LOCAL_REPO}')
+    copy_sphinx_files()
     os.system(f'cp -r {LOCAL_REPO}/CalculatedVariables/doc/. {LOCAL_REPO}/Documentation')
 
     os.system(f'rm -rf {LOCAL_REPO}/Documentation/source/converted')
@@ -50,11 +61,13 @@ for tag in repo.tags:
 
     os.system(f'cd {LOCAL_REPO} && cp -r ./Documentation/_build/{tag.name} {TARGET_VERSIONS_DIR}')
 
+    os.system(f'rm -rf {LOCAL_REPO}/Documentation/source/converted')
     os.system(f'mkdir -p {LOCAL_REPO}/Documentation/source/converted')
+    
+    repo.git.clean('-f', '-q', './') 
     repo.git.restore('.')
-    print(f'Tag {tag.name} processed')
 
-shutil.rmtree(TEMP_FOLDER)
+    print(f'Tag {tag.name} processed')
 
 print()
 print(
