@@ -35,8 +35,6 @@ def copy_sphinx_files():
   for file in files:
     os.system(f'cp {SRC_REPO}/Documentation/{file} {LOCAL_REPO}/Documentation/{file}')
 
-  os.system(f'cp {SRC_REPO}/Documentation/source/converted/quasar_OPC_UA_servers.rst {LOCAL_REPO}/Documentation/source/converted/quasar_OPC_UA_servers.rst')
-
 for tag in repo.tags:
   if re.match(VERSION_REGEX, tag.name):
     print('Processing tag: ' + tag.name)
@@ -47,6 +45,8 @@ for tag in repo.tags:
 
     os.system(f'rm -rf {LOCAL_REPO}/Documentation/source/converted')
     os.system(f'mkdir -p {LOCAL_REPO}/Documentation/source/converted')
+
+    os.system(f'cp {SRC_REPO}/Documentation/source/converted/quasar_OPC_UA_servers.rst {LOCAL_REPO}/Documentation/source/converted/quasar_OPC_UA_servers.rst')
 
     os.system(f'cd {LOCAL_REPO} && python3 ./Documentation/html2rst.py && ls -l Documentation/source/converted')
 
