@@ -23,7 +23,7 @@ if __name__ == '__main__':
     cmd = f"echo {PMOSCHOV_PASS}"
     os.system(cmd)
     
-    cmd = f"echo "{PMOSCHOV_PASS}" | sudo -S /usr/bin/login pmoschov"
+    cmd = f"echo {PMOSCHOV_PASS} | sudo -S /usr/bin/login pmoschov"
     os.system(cmd)
     
     ###
