@@ -2,7 +2,7 @@ import os
 import sys
 import json
 
-PASS_USER = os.environ.get('PASS_USER')
+PMOSCHOV_PASS = os.environ.get('PMOSCHOV_PASS')
 
 JSON_FILE = './Documentation/source/_static/versions.json'
 JSON_FILE_LOCAL = '/home/pmoschov/quasar/versions.json'
@@ -17,7 +17,7 @@ if __name__ == '__main__':
   for folder_version in os.listdir(VERSIONS_FOLDER):
     print('Processing version: ', folder_version)
 
-    cp_nginx_command = f'echo {PASS_USER} | sudo -S cp {JSON_FILE_LOCAL} {VERSIONS_FOLDER}/{folder_version}/_static/versions.json'
+    cp_nginx_command = f'echo {PMOSCHOV_PASS} | sudo -S cp {JSON_FILE_LOCAL} {VERSIONS_FOLDER}/{folder_version}/_static/versions.json'
     os.system(cp_nginx_command)
     
     cp_eos_command = f'cp {JSON_FILE_LOCAL} {EOS_VERSIONS_FOLDER}/{folder_version}/_static/versions.json'
