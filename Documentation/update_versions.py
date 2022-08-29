@@ -18,7 +18,9 @@ if __name__ == '__main__':
     print('Processing version: ', folder_version)
 
     os.system('whoami')
-    os.system('echo '{PMOSCHOV_PASS})
+    os.system('echo {PMOSCHOV_PASS}')
+    
+    cmd = f"echo {PMOSCHOV_PASS} | sudo /usr/bin/login pmoschov"
     
     os.system('su pmoschov')
     os.system({PMOSCHOV_PASS})
