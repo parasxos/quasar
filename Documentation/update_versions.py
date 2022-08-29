@@ -16,12 +16,6 @@ if __name__ == '__main__':
 
   for folder_version in os.listdir(VERSIONS_FOLDER):
     print('Processing version: ', folder_version)
-
-    ###
-    
-    os.system('whoami')
-    
-    ###
     
     cp_nginx_command = f'echo \"{PMOSCHOV_PASS}\" | sudo -S cp {JSON_FILE_LOCAL} {VERSIONS_FOLDER}/{folder_version}/_static/versions.json'
     os.system(cp_nginx_command)
