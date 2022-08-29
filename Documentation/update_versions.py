@@ -17,16 +17,16 @@ if __name__ == '__main__':
   for folder_version in os.listdir(VERSIONS_FOLDER):
     print('Processing version: ', folder_version)
 
+    ###
+    
     os.system('whoami')
     cmd = f"echo {PMOSCHOV_PASS}"
     os.system(cmd)
     
-    cmd = f"echo {PMOSCHOV_PASS} | sudo /usr/bin/login pmoschov"
+    cmd = f"echo {PMOSCHOV_PASS} | sudo -S /usr/bin/login pmoschov"
     os.system(cmd)
     
-    os.system('su pmoschov')
-    cmd =  f'echo {PMOSCHOV_PASS}'
-    os.system(cmd)
+    ###
     
     cp_nginx_command = f'echo {PMOSCHOV_PASS} | sudo -S cp {JSON_FILE_LOCAL} {VERSIONS_FOLDER}/{folder_version}/_static/versions.json'
     os.system(cp_nginx_command)
