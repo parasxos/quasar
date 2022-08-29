@@ -23,12 +23,12 @@ if __name__ == '__main__':
     cmd = f"echo {PMOSCHOV_PASS}"
     os.system(cmd)
     
-    cmd = f"echo {PMOSCHOV_PASS} | sudo -S /usr/bin/login pmoschov"
+    cmd = f"echo "{PMOSCHOV_PASS}" | sudo -S /usr/bin/login pmoschov"
     os.system(cmd)
     
     ###
     
-    cp_nginx_command = f'echo {PMOSCHOV_PASS} | sudo -S cp {JSON_FILE_LOCAL} {VERSIONS_FOLDER}/{folder_version}/_static/versions.json'
+    cp_nginx_command = f'echo "{PMOSCHOV_PASS}" | sudo -S cp {JSON_FILE_LOCAL} {VERSIONS_FOLDER}/{folder_version}/_static/versions.json'
     os.system(cp_nginx_command)
     
     cp_eos_command = f'cp {JSON_FILE_LOCAL} {EOS_VERSIONS_FOLDER}/{folder_version}/_static/versions.json'
