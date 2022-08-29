@@ -108,7 +108,7 @@ jobs:
     - name: Update versions
       run: |
         cd "${GITHUB_WORKSPACE}"
-        export PMOSCHOV_PASS="{secrets.PMOSCHOV_PASS}"
+        export PMOSCHOV_PASS="${{ secrets.PMOSCHOV_PASS }}"
         echo $PMOSCHOV_PASS
         python3 ./Documentation/update_versions.py
 
