@@ -27,3 +27,4 @@ jobs:
         else
           echo "VERSION_NAME=latest" >> "$GITHUB_ENV"
         fi
+        echo ${{ github.ref_name }}
