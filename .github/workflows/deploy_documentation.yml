@@ -18,9 +18,12 @@ jobs:
       - name: Set the value
         run: |
           echo "action_state=yellow" >> $GITHUB_ENV
-          echo "VERSION_NAME=latest" >> $GITHUB_ENV
+          echo "VERSION_NAME=latest1" >> $GITHUB_ENV
       - name: Use the value
         run: |
+          echo "VERSION_NAME=latest2" >> $GITHUB_ENV
           echo "${{ env.action_state }}"
-          echo "VERSION_NAME=almost_latest" >> $GITHUB_ENV
+          echo "Version to build: ${{ env.VERSION_NAME }}"
+      - name: Use the value2
+        run: |
           echo "Version to build: ${{ env.VERSION_NAME }}"
