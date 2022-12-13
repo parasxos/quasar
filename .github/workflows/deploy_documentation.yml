@@ -21,10 +21,13 @@ jobs:
     - name: Define version name
       run: |
           if [ ${{ startsWith(github.ref_name, 'dev') }} = true ]; then
+            echo "1st if"
             echo "VERSION_NAME=${{ github.ref_name }}" >> "$GITHUB_ENV"
           elif [ ${{ github.event.release.tag_name != '' }} = true ]; then
+            echo "2nd if"
             echo "VERSION_NAME=version/${{ github.event.release.tag_name }}" >> "$GITHUB_ENV"
           else
+            echo "else..."
             echo "VERSION_NAME=latest" >> "$GITHUB_ENV"
           fi
-          echo Finish
+          echo 'Version to build: ${{ env.VERSION_NAME }}'
