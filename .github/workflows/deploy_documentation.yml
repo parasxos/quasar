@@ -21,4 +21,5 @@ jobs:
           echo "VERSION_NAME=latest" >> $GITHUB_ENV
       - name: Use the value
         run: |
-          echo "${{ env.action_state }}" # This will output 'yellow'
+          echo "${{ env.action_state }}"
+          echo "Version to build: ${{ env.VERSION_NAME }}"
