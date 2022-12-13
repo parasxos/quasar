@@ -18,5 +18,7 @@ jobs:
     - name: Check out repository code
       uses: actions/checkout@v3
     - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-    - run: if [ ${{ github.event.release.tag_name == '' }} = true ]; then
+    - name: Define version name
+      run: |
+          if [ ${{ github.event.release.tag_name == '' }} = true ]; then
           echo "VERSION_NAME=version/${{ github.event.release.tag_name }}"
