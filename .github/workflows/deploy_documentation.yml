@@ -22,4 +22,5 @@ jobs:
       - name: Use the value
         run: |
           echo "${{ env.action_state }}"
+          echo "VERSION_NAME=almost_latest" >> $GITHUB_ENV
           echo "Version to build: ${{ env.VERSION_NAME }}"
