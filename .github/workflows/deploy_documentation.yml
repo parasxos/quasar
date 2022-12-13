@@ -1,11 +1,12 @@
 name: Deploy documentation
-
 on:
-  release:
-    types: [ published ]
   push:
     branches:
       - master
+    tags:        
+      - v1.**
+  release:
+    types: [ published ]
 
 jobs:
 
