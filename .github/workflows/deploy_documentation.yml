@@ -27,6 +27,3 @@ jobs:
         else
           echo "VERSION_NAME=latest" >> "$GITHUB_ENV"
         fi
-        echo ${{ github.ref_name }}
-        echo ${{ github.event.release.tag_name }
-        echo 'Version to build: ${{ env.VERSION_NAME }}'
